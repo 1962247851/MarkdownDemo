@@ -1,4 +1,4 @@
-# 一个基于Vdiotr的安卓自定义WebView编辑器
+# 一个基于Vditor的自定义WebView安卓markdown编辑器
 - 本地化cdn
 - 自定义工具栏
 - 封装为WebView并暴露常用方法
