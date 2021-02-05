@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">MarkdownDemo</string>
+    <string name="list">无序列表</string>
+    <string name="bold">粗体</string>
+    <string name="insert_before">起始插入行</string>
+    <string name="insert_after">末尾插入行</string>
+    <string name="ordered_list">有序列表</string>
+    <string name="link">链接</string>
+    <string name="picture">图片</string>
+    <string name="code">代码块</string>
+    <string name="inline_code">行内代码</string>
+    <string name="italic">斜体</string>
+    <string name="list_check">任务列表</string>
+    <string name="quote">引用</string>
+    <string name="line">分割线</string>
+    <string name="strike_through">删除线</string>
+    <string name="table">表格</string>
+    <string name="heading_1">一级标题</string>
+    <string name="heading_2">二级标题</string>
+    <string name="heading_3">三级标题</string>
+    <string name="heading_4">四级标题</string>
+    <string name="heading_5">五级标题</string>
+    <string name="heading_6">六级标题</string>
+    <string name="indent_increase">列表缩进</string>
+    <string name="indent_decrease">列表反向缩进</string>
+    <string name="undo">撤销</string>
+    <string name="redo">重做</string>
+    <string name="toolbar">工具栏</string>
+</resources>
