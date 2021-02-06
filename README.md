@@ -40,10 +40,13 @@ vditor.startLoad(true, true, object : Vditor.IVditorCallback {
     override fun onChange(value: String) {
         //TODO 编辑器内容改变后的回调
     }
+<<<<<<< HEAD
 
     override fun onPictureClick(imgUrls: String, position: Int) {
         //TODO 查看大图
     }
+=======
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
 })
 ```
 
@@ -57,4 +60,8 @@ vditor.startLoad(true, true, object : Vditor.IVditorCallback {
 
 ## 预览模式
 
+<<<<<<< HEAD
 调用`vditor.initPreviewer()`方法，参数为要预览的内容。
+=======
+调用` vditor.initPreviewer()`方法，参数为要预览的内容。
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7

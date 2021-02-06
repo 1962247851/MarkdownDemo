@@ -19,10 +19,13 @@
     .vditor {
       border: none;
     }
+<<<<<<< HEAD
 
     /* .img-phone {
       max-height: 100px;
     } */
+=======
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
   </style>
 </head>
 
@@ -241,6 +244,7 @@
           },
           after() {
             setIsDarkTheme(isDarkTheme)
+<<<<<<< HEAD
             let imgUrls = []
             let imgs = document.getElementsByTagName("img")
             for (const key in imgs) {
@@ -259,11 +263,14 @@
                 // console.log(imgUrls[i])
               })
             }
+=======
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
           }
         }
       )
     }
 
+<<<<<<< HEAD
     function resizeImg(img) {
       let width = img.width
       if (width == 0) {
@@ -284,6 +291,10 @@
     function setCache(key, value) {
       localStorage.setItem(key, value)
       android.onChange(value)
+=======
+    function setCache(key, value) {
+      localStorage.setItem(key, value)
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
     }
 
     function clearCache(key) {
@@ -304,7 +315,10 @@
     }
 
     function setLightTheme() {
+<<<<<<< HEAD
       isDarkTheme = false
+=======
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
       if (isEditMode) {
         vditor.setTheme("light", "light", "native")
       } else {
@@ -314,7 +328,10 @@
     }
 
     function setDarkTheme() {
+<<<<<<< HEAD
       isDarkTheme = true
+=======
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
       if (isEditMode) {
         vditor.setTheme("dark", "dark", "native")
       } else {
@@ -332,7 +349,12 @@
     }
 
     function setIsDarkTheme(dark) {
+<<<<<<< HEAD
       if (dark) {
+=======
+      isDarkTheme = dark
+      if (isDarkTheme) {
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
         setDarkTheme()
       } else {
         setLightTheme()

@@ -398,6 +398,7 @@ class Vditor : WebView {
                 i.onSelectPicture()
             }
         }
+<<<<<<< HEAD
 
         /**
          * 查看图片大图
@@ -409,6 +410,8 @@ class Vditor : WebView {
                 //i.onPictureClick(imgUrls, position)
             }
         }
+=======
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
     }
 
     interface IVditorCallback {
@@ -427,11 +430,14 @@ class Vditor : WebView {
          * 内容变化
          */
         fun onChange(value: String)
+<<<<<<< HEAD
 
         /**
          * 查看大图
          */
         fun onPictureClick(imgUrls: String, position: Int)
+=======
+>>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
     }
 
     companion object {
