@@ -24,11 +24,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         vditor = findViewById<WebView>(R.id.vditor) as Vditor
 
         initTab()
-<<<<<<< HEAD
         vditor.startLoad(false, true, object : Vditor.IVditorCallback {
-=======
-        vditor.startLoad(true, true, object : Vditor.IVditorCallback {
->>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
             override fun onSelectPicture() {
                 // ignore
             }
@@ -44,24 +40,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     vditor.initEditor("edit")
                 } else {
                     // 如果不是editMode，只是预览，只需要调用initPreviewer，传入md格式的字符串即可
-<<<<<<< HEAD
                     vditor.initPreviewer("# 测试 \n## 222\n ### 333\n![ICON](https://b3log.org/images/brand/vditor-128.png)![ICON](https://b3log.org/images/brand/vditor-128.png)![ICON](https://b3log.org/images/brand/vditor-128.png)")
-=======
-                    vditor.initPreviewer("# 一级标题")
->>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
                 }
             }
 
             override fun onChange(value: String) {
                 //TODO 编辑器内容改变后的回调
             }
-<<<<<<< HEAD
 
             override fun onPictureClick(imgUrls: String, position: Int) {
                 //TODO 查看大图
             }
-=======
->>>>>>> 6e7c02ee7714c1653227ac5f52315886767cbcb7
         })
     }
 
