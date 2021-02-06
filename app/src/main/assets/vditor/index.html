@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>Vditor</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta http-equiv="Window-target" content="_top" />
+  <link rel="stylesheet" type="text/css" href="file:///android_asset/vditor/vditor@3.8.0/dist/index.css" />
+
+  <style>
+    .vditor-toolbar {
+      display: none;
+    }
+
+    .vditor {
+      border: none;
+    }
+
+    /* .img-phone {
+      max-height: 100px;
+    } */
+  </style>
+</head>
+
+<body style="margin: 0;">
+  <div>
+    <div id="vditor"></div>
+  </div>
+
+  <script>
+    const TOOLBAR_OPTION_NAMES = {
+      HEADINGS: "headings",
+      BOLD: "bold",
+      ITALIC: "italic",
+      STRIKE: "strike",
+      LINK: "link",
+      LIST: "list",
+      ORDERED_LIST: "ordered-list",
+      CHECK: "check",
+      OUTDENT: "outdent",
+      INDENT: "indent",
+      QUOTE: "quote",
+      LINE: "line",
+      CODE: "code",
+      INLINE_CODE: "inline-code",
+      INSERT_BEFORE: "insert-before",
+      INSERT_AFTER: "insert-after",
+      TABLE: "table",
+      UNDO: "undo",
+      REDO: "redo",
+      EDIT_MODE: "edit-mode",
+      BOTH: "both",
+      EXPORT: "export",
+      OUTLINE: "outline",
+      PREVIEW: "preview",
+      DEVTOOLS: "devtools",
+      INFO: "info",
+      HELP: "help",
+
+      CODE_THEME: "code-theme",
+      CONTENT_THEME: "content-theme",
+    }
+    const TOOLBAR_OPTION_HEADINGS_NAMES = {
+      LEVEL_ONE: "",
+    }
+    const PATH = "file:///android_asset/vditor/vditor@3.8.0"
+
+    let vditor
+    let isEditMode = getQueryVariable("isEditMode") === "true"
+    let isDarkTheme = getQueryVariable("isDarkTheme") === "true"
+
+    document.addEventListener('DOMContentLoaded', function () {
+      addScript(PATH + '/dist/index.min.js',
+        () => {
+          onLoadFinished()
+        })
+    })
+
+    function initEditor(key) {
+      vditor = new Vditor('vditor', {
+        cdn: PATH,
+        hint: {
+          emojiPath: PATH + "/dist/images/emoji",
+        },
+        preview: {
+          theme: {
+            path: PATH + "/dist/css/content-theme"
+          },
+        },
+        toolbarConfig: {
+          hide: true,
+          // pin: true,
+        },
+        cache: {
+          enable: true,
+          id: key
+        },
+        mode: "wysiwyg",
+        // icon: "material",
+        // height: window.innerHeight,
+        counter: {
+          enable: true,
+        },
+        toolbar: [
+          {
+            name: "headings",
+            tipPosition: "s",
+          },
+          {
+            name: "bold",
+            tipPosition: "s",
+          },
+          {
+            name: "italic",
+            tipPosition: "s",
+          },
+          {
+            name: "strike",
+            tipPosition: "s",
+          },
+          {
+            name: "link",
+            tipPosition: "s",
+          },
+          "|",
+          {
+            name: "list",
+            tipPosition: "s",
+          },
+          {
+            name: "ordered-list",
+            tipPosition: "s",
+          },
+          {
+            name: "check",
+            tipPosition: "s",
+          },
+          {
+            name: "outdent",
+            tipPosition: "s",
+          },
+          {
+            name: "indent",
+            tipPosition: "s",
+          },
+          "|",
+          {
+            name: "quote",
+            tipPosition: "s",
+          },
+          {
+            name: "line",
+            tipPosition: "s",
+          },
+          {
+            name: "code",
+            tipPosition: "s",
+          },
+          {
+            name: "inline-code",
+            tipPosition: "s",
+          },
+          {
+            name: "insert-before",
+            tipPosition: "s",
+          },
+          {
+            name: "insert-after",
+            tipPosition: "s",
+          },
+          "|",
+          {
+            // hotkey: '⌘-⇧-S',
+            name: 'uploadPicture',
+            tipPosition: 's',
+            tip: '上传图片',
+            className: 'right',
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path d="M18 20H4V6h9V4H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-9h-2v9zm-7.79-3.17l-1.96-2.36L5.5 18h11l-3.54-4.71zM20 4V1h-2v3h-3c.01.01 0 2 0 2h3v2.99c.01.01 2 0 2 0V6h3V4h-3z" fill="currentColor"></path></svg>',
+            click() {
+              uploadPicture()
+            }
+          },
+          {
+            name: "table",
+            tipPosition: "s",
+          },
+          "|",
+          {
+            name: "undo",
+            tipPosition: "s",
+          },
+          {
+            name: "redo",
+            tipPosition: "s",
+          },
+          "|",
+          "fullscreen",
+          {
+            name: "edit-mode",
+            tipPosition: "s",
+          },
+          {
+            name: "code-theme",
+            tipPosition: "s",
+          },
+          "preview",
+          "info",
+          "help",
+          "outline",
+          {
+            name: "more",
+            // tipPosition: "s",
+            toolbar: [
+              "both",
+              // "outline",
+              // "preview",
+              // "info",
+              // "help",
+            ],
+          }
+        ],
+        input: (value) => {
+          android.onChange(value)
+          // console.log(value)
+        }
+      })
+      setIsDarkTheme(isDarkTheme)
+    }
+
+    function initPreviewer(content) {
+      // Vditor.mermaidRender(document)
+      document.getElementById("vditor").style.padding = "10px"
+      Vditor.preview(document.getElementById("vditor"), content,
+        {
+          speech: {
+            enable: true,
+          },
+          after() {
+            setIsDarkTheme(isDarkTheme)
+            let imgUrls = []
+            let imgs = document.getElementsByTagName("img")
+            for (const key in imgs) {
+              if (Object.hasOwnProperty.call(imgs, key)) {
+                const img = imgs[key]
+                // resizeImg(img)
+                // img.classList.add("img-phone")
+                imgUrls.push(img.src)
+              }
+            }
+            for (let i = 0; i < imgs.length; i++) {
+              let img = imgs[i]
+              img.addEventListener("click", function () {
+                android.onPictureClick(JSON.stringify(imgUrls), i)
+                // console.log(imgUrls, i)
+                // console.log(imgUrls[i])
+              })
+            }
+          }
+        }
+      )
+    }
+
+    function resizeImg(img) {
+      let width = img.width
+      if (width == 0) {
+        img.addEventListener("load", function () {
+          console.log("load", img.width, img.height)
+          if (img.width > 100) {
+            img.width = 100
+          }
+        })
+      } else {
+        console.log(img.width, img.height)
+        if (width > 100) {
+          img.width = 100
+        }
+      }
+    }
+
+    function setCache(key, value) {
+      localStorage.setItem(key, value)
+      android.onChange(value)
+    }
+
+    function clearCache(key) {
+      localStorage.removeItem(key)
+    }
+
+    function onLoadFinished() {
+      android.onLoadFinished()
+    }
+
+    function uploadPicture() {
+      android.selectPicture()
+      // insertPicture("https://www.bilibili.com/favicon.ico?v=1", "哔哩哔哩", "ICON")
+    }
+
+    function getValue() {
+      android.getValue(vditor.getValue())
+    }
+
+    function setLightTheme() {
+      isDarkTheme = false
+      if (isEditMode) {
+        vditor.setTheme("light", "light", "native")
+      } else {
+        Vditor.setContentTheme("light", PATH + "/dist/css/content-theme")
+      }
+      document.body.style.background = ""
+    }
+
+    function setDarkTheme() {
+      isDarkTheme = true
+      if (isEditMode) {
+        vditor.setTheme("dark", "dark", "native")
+      } else {
+        Vditor.setContentTheme("dark", PATH + "/dist/css/content-theme")
+      }
+      document.body.style.background = "#303030"
+    }
+
+    function insertValue(value) {
+      vditor.insertValue(value)
+    }
+
+    function insertPicture(url, alt, title) {
+      vditor.insertValue("![" + alt + "]" + "(" + url + " \"" + title + "\")")
+    }
+
+    function setIsDarkTheme(dark) {
+      if (dark) {
+        setDarkTheme()
+      } else {
+        setLightTheme()
+      }
+    }
+
+    function getQueryVariable(variable) {
+      var query = window.location.search.substring(1)
+      var vars = query.split("&")
+      for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=")
+        if (pair[0] == variable) {
+          console.log(variable, pair[1])
+          return pair[1]
+        }
+      }
+      return (false)
+    }
+
+    function clickToolbarBold() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.BOLD)
+    }
+    function clickToolbarItalic() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.ITALIC)
+    }
+    function clickToolbarStrike() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.STRIKE)
+    }
+    function clickToolbarLink() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.LINK)
+    }
+    function clickToolbarList() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.LIST)
+    }
+    function clickToolbarOrderedList() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.ORDERED_LIST)
+    }
+    function clickToolbarCheckList() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.CHECK)
+    }
+    function clickToolbarOutdent() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.OUTDENT)
+    }
+    function clickToolbarIndent() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.INDENT)
+    }
+    function clickToolbarQuote() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.QUOTE)
+    }
+    function clickToolbarLine() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.LINE)
+    }
+    function clickToolbarCode() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.CODE)
+    }
+    function clickToolbarInlineCode() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.INLINE_CODE)
+    }
+    function clickToolbarInsertBefore() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.INSERT_BEFORE)
+    }
+    function clickToolbarInsertAfter() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.INSERT_AFTER)
+    }
+    function clickToolbarTable() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.TABLE)
+    }
+    function clickToolbarUndo() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.UNDO)
+    }
+    function clickToolbarRedo() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.REDO)
+    }
+    function clickToolbarBoth() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.BOTH)
+    }
+    function clickToolbarCodeTheme() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.CODE_THEME)
+    }
+    function clickToolbarContentTheme() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.CONTENT_THEME)
+    }
+    function clickToolbarExport() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.EXPORT)
+    }
+    function clickToolbarOutline() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.OUTLINE)
+    }
+    function clickToolbarPreview() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.PREVIEW)
+    }
+    function clickToolbarDevtools() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.DEVTOOLS)
+    }
+    function clickToolbarInfo() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.INFO)
+    }
+    function clickToolbarHelp() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.HELP)
+    }
+    function clickToolbarEditMode() {
+      clickToolbarItem(TOOLBAR_OPTION_NAMES.EDIT_MODE)
+    }
+    function clickToolbarHeadingLevel1() {
+      vditor.vditor.toolbar.elements[TOOLBAR_OPTION_NAMES.HEADINGS].getElementsByClassName("vditor-hint")[0].getElementsByTagName("button")[0].dispatchEvent(generateCustomEvent())
+    }
+    function clickToolbarHeadingLevel2() {
+      vditor.vditor.toolbar.elements[TOOLBAR_OPTION_NAMES.HEADINGS].getElementsByClassName("vditor-hint")[0].getElementsByTagName("button")[1].dispatchEvent(generateCustomEvent())
+    }
+    function clickToolbarHeadingLevel3() {
+      vditor.vditor.toolbar.elements[TOOLBAR_OPTION_NAMES.HEADINGS].getElementsByClassName("vditor-hint")[0].getElementsByTagName("button")[2].dispatchEvent(generateCustomEvent())
+    }
+    function clickToolbarHeadingLevel4() {
+      vditor.vditor.toolbar.elements[TOOLBAR_OPTION_NAMES.HEADINGS].getElementsByClassName("vditor-hint")[0].getElementsByTagName("button")[3].dispatchEvent(generateCustomEvent())
+    }
+    function clickToolbarHeadingLevel5() {
+      vditor.vditor.toolbar.elements[TOOLBAR_OPTION_NAMES.HEADINGS].getElementsByClassName("vditor-hint")[0].getElementsByTagName("button")[4].dispatchEvent(generateCustomEvent())
+    }
+    function clickToolbarHeadingLevel6() {
+      vditor.vditor.toolbar.elements[TOOLBAR_OPTION_NAMES.HEADINGS].getElementsByClassName("vditor-hint")[0].getElementsByTagName("button")[5].dispatchEvent(generateCustomEvent())
+    }
+
+    function clickToolbarItem(name) {
+      vditor.vditor.toolbar.elements[name].firstElementChild.dispatchEvent(generateCustomEvent())
+    }
+
+    function generateCustomEvent() {
+      var u = navigator.userAgent
+      // ios终端
+      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+      let eventString
+      if (isiOS) {
+        eventString = "touchstart"
+      } else {
+        eventString = "click"
+      }
+      return new CustomEvent(eventString)
+    }
+
+    /**
+    document.getElementById("vditor").addEventListener('keydown', function (e) {
+      // 兼容FF和IE和Opera
+      var theEvent = e || window.event
+      var code = theEvent.keyCode || theEvent.which || theEvent.charCode
+      console.log(code)
+      if (code == "13") {
+        insertValue("<br/>")
+      }
+    })
+    */
+
+    const addScript = (path, callback) => {
+      const scriptElement = document.createElement('script')
+      scriptElement.src = path
+      scriptElement.async = true
+      document.head.appendChild(scriptElement)
+      scriptElement.onload = () => {
+        callback()
+      }
+    }
+  </script>
+</body>
+
+</html>

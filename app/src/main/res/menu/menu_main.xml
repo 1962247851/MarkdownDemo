@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/undo"
+        android:icon="@drawable/ic_undo"
+        android:title="@string/undo"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/redo"
+        android:icon="@drawable/ic_redo"
+        android:title="@string/redo"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/toggle_toolbar"
+        android:icon="@drawable/ic_add_white_24dp"
+        android:title="@string/toolbar"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/help"
+        android:title="帮助"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/preview"
+        android:title="编辑/预览"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/switch_theme"
+        android:title="切换日夜间主题"
+        app:showAsAction="ifRoom" />
+
+</menu>

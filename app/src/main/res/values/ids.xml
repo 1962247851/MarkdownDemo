@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2016. SHENQINCI(沈钦赐)<dev@qinc.me>
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~       http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <!--编辑操作的id-->
+    <item name="id_shortcut_format_header_1" type="id" /><!-- 一级标题-->
+    <item name="id_shortcut_format_header_2" type="id" /><!-- 二级标题-->
+    <item name="id_shortcut_format_header_3" type="id" /><!-- 三级标题-->
+    <item name="id_shortcut_format_header_4" type="id" /><!-- 四级标题-->
+    <item name="id_shortcut_format_header_5" type="id" /><!-- 无级标题-->
+    <item name="id_shortcut_format_header_6" type="id" /><!-- 六级标题 -->
+    <item name="id_shortcut_format_bold" type="id" /><!-- 粗体 -->
+    <item name="id_shortcut_format_italic" type="id" /><!-- 斜体 -->
+    <item name="id_shortcut_format_strike_through" type="id" /><!-- 字体划线 -->
+    <item name="id_shortcut_format_list" type="id" /><!-- 无序列表 -->
+    <item name="id_shortcut_format_ordered_list" type="id" /><!-- 有序列表  -->
+    <item name="id_shortcut_format_check_box" type="id" /><!-- 任务列表 -->
+    <item name="id_shortcut_format_quote" type="id" /><!--引用-->
+    <item name="id_shortcut_insert_link" type="id" /><!-- 插入链接 -->
+    <item name="id_shortcut_insert_photo" type="id" /><!-- 插入图片 -->
+    <item name="id_shortcut_insert_code" type="id" /><!-- 代码块 -->
+    <item name="id_shortcut_insert_inline_code" type="id" /><!-- 行内代码 -->
+    <item name="id_shortcut_insert_grid" type="id" /><!-- 插入表格 -->
+    <item name="id_shortcut_insert_line" type="id" /><!-- 分割线 -->
+    <item name="id_shortcut_insert_before" type="id" /><!-- 起始插入行 -->
+    <item name="id_shortcut_insert_after" type="id" /><!-- 末尾插入行 -->
+    <item name="id_shortcut_format_indent_increase" type="id" /><!-- 列表缩进 -->
+    <item name="id_shortcut_format_indent_decrease" type="id" /><!-- 列表反向缩进 -->
+
+</resources>
