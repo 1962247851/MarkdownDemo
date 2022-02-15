@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         vditor = findViewById<WebView>(R.id.vditor) as Vditor
 
         initTab()
-        vditor.startLoad(false, true, object : Vditor.IVditorCallback {
+        vditor.startLoad(true, true, object : Vditor.IVditorCallback {
             override fun onSelectPicture() {
                 // ignore
             }
