@@ -258,27 +258,37 @@
           cdn: PATH,
           after() {
             setIsDarkTheme(isDarkTheme)
-            let imgUrls = []
+
+            const pattern = /!\[(.*?)\]\((.*?)( ".*?")*\)/mg;
+            const imgAltUrls = [];
+            const imgUrls = [];
+            let matcher;
+            while ((matcher = pattern.exec(content)) !== null) {
+              imgAltUrls.push({
+                alt: matcher[1],
+                url: matcher[2]
+              });
+              imgUrls.push(matcher[2])
+            }
+            // console.log(imgAltUrls)
+            // console.log(imgUrls)
             let imgs = document.getElementsByTagName("img")
-            console.log(imgs)
+            // console.log(imgs)
             for (const key in imgs) {
               if (Object.hasOwnProperty.call(imgs, key)) {
                 const img = imgs[key]
-                // resizeImg(img)
+                resizeImg(img)
                 // img.classList.add("img-phone")
-                imgUrls.push(img.src)
               }
             }
             for (let i = 0; i < imgs.length; i++) {
               let img = imgs[i]
               img.addEventListener("click", function () {
-                // console.log(imgUrls, i)
-                // console.log(imgUrls[i])
-                let realSrc = img.src
-                imgUrls[i] = realSrc
                 android.onPictureClick(JSON.stringify(imgUrls), i)
+                // console.log(imgAltUrls, i)
                 // console.log(imgUrls, i)
                 // console.log(imgUrls[i])
+                // console.log(img.src)
               })
             }
           }
