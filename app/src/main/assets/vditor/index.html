@@ -16,9 +16,15 @@
       display: none;
     }
 
-    .vditor {
-      border: none;
+    /* 自定义编辑器主题 */
+    .vditor--dark {
+      --textarea-background-color: #303030;
+      --panel-background-color: #303030;
     }
+
+    /* .vditor {
+      border: none;
+    } */
 
     /* .img-phone {
       max-height: 100px;
@@ -28,7 +34,7 @@
 
 <body style="margin: 0;">
   <div>
-    <div id="vditor"></div>
+    <div id="vditor" class="vditor-reset"></div>
   </div>
 
   <script>
@@ -74,7 +80,8 @@
     let isDarkTheme = getQueryVariable("isDarkTheme") === "true"
 
     document.addEventListener('DOMContentLoaded', function () {
-      addScript(PATH + '/dist/index.min.js',
+      let scriptPath = isEditMode ? PATH + '/dist/index.min.js' : PATH + '/dist/method.min.js'
+      addScript(scriptPath,
         () => {
           onLoadFinished()
         })
@@ -82,6 +89,7 @@
 
     function initEditor(key) {
       vditor = new Vditor('vditor', {
+        theme: isDarkTheme ? "dark" : "classic",
         undoDelay: 400,
         cdn: PATH,
         hint: {
@@ -89,6 +97,7 @@
         },
         preview: {
           theme: {
+            current: isDarkTheme ? "dark" : "light",
             path: PATH + "/dist/css/content-theme"
           },
         },
@@ -235,13 +244,18 @@
     }
 
     function initPreviewer(content) {
-      // Vditor.mermaidRender(document)
       document.getElementById("vditor").style.padding = "10px"
       Vditor.preview(document.getElementById("vditor"), content,
         {
+          lazyLoadImage: 'https://cdn.jsdelivr.net/npm/vditor/dist/images/img-loading.svg',
           speech: {
             enable: true,
           },
+          theme: {
+            current: isDarkTheme ? "dark" : "light",
+            path: PATH + "/dist/css/content-theme"
+          },
+          cdn: PATH,
           after() {
             setIsDarkTheme(isDarkTheme)
             let imgUrls = []
@@ -309,11 +323,11 @@
     function setLightTheme() {
       isDarkTheme = false
       if (isEditMode) {
-        vditor.setTheme("light", "light", "native")
+        vditor.setTheme("classic", "light", "native")
       } else {
         Vditor.setContentTheme("light", PATH + "/dist/css/content-theme")
       }
-      document.body.style.background = ""
+      document.querySelector('html').style.backgroundColor = '#fff'
     }
 
     function setDarkTheme() {
@@ -323,7 +337,7 @@
       } else {
         Vditor.setContentTheme("dark", PATH + "/dist/css/content-theme")
       }
-      document.body.style.background = "#303030"
+      document.querySelector('html').style.backgroundColor = '#303030'
     }
 
     function insertValue(value) {
