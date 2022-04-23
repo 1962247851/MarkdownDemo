@@ -260,6 +260,7 @@
             setIsDarkTheme(isDarkTheme)
             let imgUrls = []
             let imgs = document.getElementsByTagName("img")
+            console.log(imgs)
             for (const key in imgs) {
               if (Object.hasOwnProperty.call(imgs, key)) {
                 const img = imgs[key]
@@ -271,6 +272,10 @@
             for (let i = 0; i < imgs.length; i++) {
               let img = imgs[i]
               img.addEventListener("click", function () {
+                // console.log(imgUrls, i)
+                // console.log(imgUrls[i])
+                let realSrc = img.src
+                imgUrls[i] = realSrc
                 android.onPictureClick(JSON.stringify(imgUrls), i)
                 // console.log(imgUrls, i)
                 // console.log(imgUrls[i])
